@@ -3,188 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complex HTML Table Assignment</title>
+    <title>Divine's Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-900 flex justify-center items-center min-h-screen">
 
-<body>
+    <!-- calculator -->
+    <div class="bg-gray-800 w-96 rounded-3xl shadow-2xl p-8 border-4 border-gray-700">
+        <h1 class="text-white text-3xl font-bold mb-8">Divine's Calculator</h1>
 
-    <h2>Complex HTML Table</h2>
+        <!-- display -->
+        <div class="bg-gray-900 rounded-xl h-28 flex flex-col items-end justify-end p-5 mb-8 overflow-hidden">
+            <span id="history" class="text-gray-500 text-sm h-5 truncate w-full text-right"></span>
+            <span id="display" class="text-white text-5xl truncate w-full text-right">0</span>
+        </div>
 
-    <p><strong>Name:</strong> Abdulrahman Abutalib</p>
-    <p><strong>Matric Number:</strong> FT24CMP0280</p>
+        <!-- buttons -->
+        <div class="grid grid-cols-4 gap-4">
+            <!-- Row 1 -->
+            <button data-action="clear" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">AC</button>
+            <button data-action="delete" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">DEL</button>
+            <button data-action="percent" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">%</button>
+            <button data-op="/" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">÷</button>
 
-    <table border="3" cellspacing="0" cellpadding="0" width="900" height="700">
+            <!-- Row 2 -->
+            <button data-num="7" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">7</button>
+            <button data-num="8" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">8</button>
+            <button data-num="9" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">9</button>
+            <button data-op="*" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">×</button>
 
-        <!-- Row 1 -->
-        <tr height="40">
-            <td rowspan="2" colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-            <td rowspan="2" colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+            <!-- Row 3 -->
+            <button data-num="4" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">4</button>
+            <button data-num="5" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">5</button>
+            <button data-num="6" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">6</button>
+            <button data-op="-" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">-</button>
 
-        <!-- Row 2 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+            <!-- Row 4 -->
+            <button data-num="1" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">1</button>
+            <button data-num="2" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">2</button>
+            <button data-num="3" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">3</button>
+            <button data-op="+" class="bg-gray-700 h-16 rounded-full text-green-400 text-xl hover:bg-gray-600 transition duration-200">+</button>
 
-        <!-- Row 3 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-            <td colspan="3"></td>
-            <td colspan="2"></td>
-            <td rowspan="2" colspan="2"></td>
-        </tr>
+            <!-- Row 5 -->
+            <button data-num="00" class="bg-gray-700 h-16 rounded-full text-white text-xl col-span-2 hover:bg-gray-600 transition">00</button>
+            <button data-num="0" class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">0</button>
+            <button data-num="." class="bg-gray-700 h-16 rounded-full text-white text-xl hover:bg-gray-600 transition">.</button>
 
-        <!-- Row 4 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-        </tr>
+            <button data-action="equals" class="bg-orange-500 h-16 rounded-full text-white text-2xl col-span-4 hover:bg-orange-600 transition">=</button>
+        </div>
+    </div>
 
-        <!-- Row 5 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-            <td rowspan="2" colspan="2"></td>
-            <td colspan="5"></td>
-        </tr>
+    <script>
+        const display = document.getElementById('display');
+        const history = document.getElementById('history');
 
-        <!-- Row 6 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-            <td colspan="5"></td>
-        </tr>
+        let current = '0';
+        let previous = null;
+        let operator = null;
+        let justEvaluated = false;
 
-        <!-- Row 7 -->
-        <tr height="40">
-            <td rowspan="3" colspan="2"></td>
-            <td rowspan="2" colspan="4"></td>
-            <td colspan="2"></td>
-            <td colspan="5"></td>
-        </tr>
+        function render() {
+            display.textContent = current;
+            history.textContent = previous !== null && operator ? `${previous} ${operator}` : '';
+        }
 
-        <!-- Row 8 -->
-        <tr height="40">
-            <td rowspan="2" colspan="2"></td>
-            <td colspan="5"></td>
-        </tr>
+        function inputNumber(num) {
+            if (justEvaluated) {
+                current = num === '.' ? '0.' : num;
+                justEvaluated = false;
+                return;
+            }
+            if (num === '.' && current.includes('.')) return;
+            current = current === '0' && num !== '.' ? num : current + num;
+        }
 
-        <!-- Row 9 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="5"></td>
-        </tr>
+        function chooseOperator(op) {
+            if (operator !== null) compute();
+            previous = current;
+            operator = op;
+            justEvaluated = false;
+            current = '0';
+        }
 
-        <!-- Row 10 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="5"></td>
-        </tr>
+        function compute() {
+            if (operator === null || previous === null) return;
+            const a = parseFloat(previous);
+            const b = parseFloat(current);
+            let result;
+            switch (operator) {
+                case '+': result = a + b; break;
+                case '-': result = a - b; break;
+                case '*': result = a * b; break;
+                case '/': result = b === 0 ? NaN : a / b; break;
+                default: return;
+            }
+            current = Number.isNaN(result) ? 'Error' : String(Math.round(result * 1e10) / 1e10);
+            operator = null;
+            previous = null;
+            justEvaluated = true;
+        }
 
-        <!-- Row 11 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-            <td rowspan="3" colspan="2"></td>
-            <td colspan="5"></td>
-        </tr>
+        document.querySelectorAll('[data-num]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                inputNumber(btn.dataset.num);
+                render();
+            });
+        });
 
-        <!-- Row 12 -->
-        <tr height="40">
-            <td colspan="5"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+        document.querySelectorAll('[data-op]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                chooseOperator(btn.dataset.op);
+                render();
+            });
+        });
 
-        <!-- Row 13 -->
-        <tr height="40">
-            <td colspan="5"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+        document.querySelector('[data-action="equals"]').addEventListener('click', () => {
+            compute();
+            render();
+        });
 
-        <!-- Row 14 -->
-        <tr height="40">
-            <td rowspan="4" colspan="5"></td>
-            <td colspan="2"></td>
-            <td rowspan="2" colspan="2"></td>
-            <td rowspan="2" colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+        document.querySelector('[data-action="clear"]').addEventListener('click', () => {
+            current = '0';
+            previous = null;
+            operator = null;
+            justEvaluated = false;
+            render();
+        });
 
-        <!-- Row 15 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+        document.querySelector('[data-action="delete"]').addEventListener('click', () => {
+            current = current.length > 1 ? current.slice(0, -1) : '0';
+            render();
+        });
 
-        <!-- Row 16 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
+        document.querySelector('[data-action="percent"]').addEventListener('click', () => {
+            current = String(parseFloat(current) / 100);
+            render();
+        });
 
-        <!-- Row 17 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-        </tr>
-
-        <!-- Row 18 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-            <td rowspan="2" colspan="2"></td>
-            <td rowspan="2" colspan="2"></td>
-            <td colspan="4"></td>
-        </tr>
-
-        <!-- Row 19 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-            <td colspan="4"></td>
-        </tr>
-
-        <!-- Row 20 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-        </tr>
-
-        <!-- Row 21 -->
-        <tr height="40">
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-            <td colspan="4"></td>
-        </tr>
-
-    </table>
-
+        render();
+    </script>
 </body>
 </html>
